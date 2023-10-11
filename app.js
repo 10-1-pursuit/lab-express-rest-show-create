@@ -27,6 +27,11 @@ app.post("/logs", (req, res) => {
   res.json(log[log.length - 1]);
 });
 
+app.delete("/logs/:id", (req, res) => {
+  const { id } = req.params;
+  res.send(log.splice(id, 1));
+});
+
 app.get("*", (req, res) => {
   res.status(404).json({ error: "Not Found" });
 });
