@@ -6,8 +6,9 @@ const app = express();
 const logs_controller = require('./controllers/logs_controller')
 
 
-//ROUTES:
+//Middleware:
 app.use(express.json()) // get post requests
+
 app.use('/logs', logs_controller);
 
 app.use((req, res, next) => {
