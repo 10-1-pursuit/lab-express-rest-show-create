@@ -49,4 +49,26 @@ module.exports = [
       mistakesWereMadeToday: true,
       daysSinceLastCrisis: 0,
     },
+    {
+      captainName: "Sarah Lance",
+      title: "BoomTown",
+      post: "I stayed with Ava for two episodes",
+      mistakesWereMadeToday: false,
+      daysSinceLastCrisis: 7,
+    },
+    {
+      captainName: "Xavier",
+      title: "Go Down? Me? Never.",
+      post: "Sleep? To Dream",
+      mistakesWereMadeToday: false,
+      daysSinceLastCrisis: 5,
+    },
+    {
+      captainName: "Sarah Lance",
+      title: "Misty Hex",
+      post: "Get it.",
+      mistakesWereMadeToday: false,
+      daysSinceLastCrisis: 9,
+    }
+
   ];
