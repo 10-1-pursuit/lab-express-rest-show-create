@@ -4,10 +4,9 @@ const logs = express.Router();
 const logsArr = require("../models/logs_model");
 
 logs.get("/", (req, res) => {
-  res.json(logsArr);
-});
 
-logs.get("/", (req, res) => {
+  res.json(logsArr);
+
   const sortedOrder = req.query.order;
   const sortedMistakes = req.query.mistakes;
   const lastCrisis = req.query.lastCrisis;
@@ -16,11 +15,11 @@ logs.get("/", (req, res) => {
 
   if (sortedOrder === "acs") {
     
-    const ascAlphabetArr = filteredLogs.sort((a, b) => {
+    const ascAlphabetArr = filteredLogs.sort((a, b) => {                        //COULD MOVE TO VIEW
       for (let i = 0; i < Math.min(a.title.length, b.title.length); i++) {
         // if one strings is shorter we get undefined. By limiting the loop to the min length we only compare the charters we have
 
-        const charAstrings = a.title.charCodeAt(i);
+        const charAstrings = a.title.charCodeAt(i); //indexing a string using UTF-16 units to return lone numbers
         const charBstrings = b.title.charCodeAt(i);
         if (charAstrings !== charBstrings) {
           return charAstrings - charBstrings;
@@ -29,27 +28,32 @@ logs.get("/", (req, res) => {
       return a.title.length - b.title.length; //shorter words first
     });
 
-    if (ascAlphabetArr.length === 0) {  //checking for empty arr.
+    if (ascAlphabetArr.length === 0){  //checking for empty arr.
       res.status(420).send("asending array is off");
     } else {
+      console.log(ascAlphabetArr)
       res.json(ascAlphabetArr);
     }
 
 
   } else if (sortedOrder === "desc") {
-    const descAlphabetArr = filteredLogs.sort((a, b) => // I wanted to use localeCompare. 
+
+    const descAlphabetArr = filteredLogs.sort((a, b) => // I wanted to use localeCompare. //COULD MOVE TO VIEW
       b.title.localeCompare(a.title, 'en', {sensitivity: 'case'})
     );
 
     if (descAlphabetArr.length === 0) {
       res.status(420).send("decending array is off");
     } else {
+      console.log(descAlphabetArr)
       res.json(descAlphabetArr);
     }
   } else if (sortedMistakes === true) {
-    const mistakesTLogs = filteredLogs.filter((log) => {
+
+    const mistakesTLogs = filteredLogs.filter((log) => { //COULD MOVE TO VIEW
       return log.mistakesWereMadeToday;
-    });
+    }
+    );
 
     if (mistakesTLogs.length === 0) {
       res.status(420).send("error with ur simple filter");
@@ -57,9 +61,10 @@ logs.get("/", (req, res) => {
       console.log(mistakesTLogs);
       res.json(mistakesTLogs);
     }
+    
   } else if (sortedMistakes === false) {
     
-         const mistakesFLogs = filteredLogs.filter((log) => {
+         const mistakesFLogs = filteredLogs.filter((log) => {     //COULD MOVE TO VIEW
          return !log.mistakesWereMadeToday;
          });
 
@@ -70,11 +75,15 @@ logs.get("/", (req, res) => {
       console.log(mistakesFLogs);
       res.json(mistakesFLogs);
     }
+
   } else if(lastCrisis === "gt10"){
+
+    let num = 10
   
-        const sortedLastCrisis = filteredLogs.map((log) => {
-          return  log.daysSinceLastCrisis > 10
-    });
+        const sortedLastCrisis = filteredLogs.filter((log) => {       //COULD MOVE TO VIEW 
+          return log.daysSinceLastCrisis > num;
+         }
+    );
 
     if (sortedLastCrisis.length === 0){
         res.status(420).send("Length is off size queen")
