@@ -37,8 +37,8 @@ logs.get("/", (req, res) => {
 
 
   } else if (sortedOrder === "desc") {
-    const descAlphabetArr = filteredLogs.sort((a, b) =>
-      b.title.localeCompare(a.title)
+    const descAlphabetArr = filteredLogs.sort((a, b) => // I wanted to use localeCompare. 
+      b.title.localeCompare(a.title, 'en', {sensitivity: 'case'})
     );
 
     if (descAlphabetArr.length === 0) {
@@ -47,7 +47,7 @@ logs.get("/", (req, res) => {
       res.json(descAlphabetArr);
     }
   } else if (sortedMistakes === true) {
-    const mistakesTLogs = logsArr.filter((log) => {
+    const mistakesTLogs = filteredLogs.filter((log) => {
       return log.mistakesWereMadeToday;
     });
 
@@ -57,20 +57,36 @@ logs.get("/", (req, res) => {
       console.log(mistakesTLogs);
       res.json(mistakesTLogs);
     }
-  }
+  } else if (sortedMistakes === false) {
+    
+         const mistakesFLogs = filteredLogs.filter((log) => {
+         return !log.mistakesWereMadeToday;
+         });
 
-  if (sortedMistakes === false) {
-    const mistakesFLogs = logsArr.filter((log) => {
-      return !log.mistakesWereMadeToday;
-    });
+
     if (mistakesFLogs.length === 0) {
       res.status(420).send("error with ur simple filter");
     } else {
       console.log(mistakesFLogs);
       res.json(mistakesFLogs);
     }
+  } else if(lastCrisis === "gt10"){
+  
+        const sortedLastCrisis = filteredLogs.map((log) => {
+          return  log.daysSinceLastCrisis > 10
+    });
+
+    if (sortedLastCrisis.length === 0){
+        res.status(420).send("Length is off size queen")
+    } else {
+        console.log(sortedLastCrisis);
+        res.json(sortedLastCrisis)
+    }
   }
-});
+
+}
+);
+
 
 logs.get("/:arrNum", (req, res) => {
   const { arrNum } = req.params;
