@@ -1,12 +1,16 @@
 const express = require("express");
 const app = express();
 
-const logsController = require("./controllers/logsController.js");
-const shapesController = require("./");
+// const logsController = require("./controllers/logsController.js");
 
+app.get("/", (request, response) => {
 
+    response.send("Hello World!");
+})
 app.use(express.json());
 
-app.use("/logs", logsController);
+// app.use("/", logsController);
 
 
+
+module.exports = app;
