@@ -39,6 +39,9 @@ logs.get("/:id", (req, res) => {
   }
 });
 
+
+
+
 const checkForLogKey = (req, res, next) => {
   console.log("ok");
   if (
@@ -67,8 +70,13 @@ logs.put("/:index",checkForLogKey, (req, res) => {
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
   logsArr[index ] = req.body;
   res.send('Ok')
-})
+});
 
+logs.delete('/:id', (req, res) => {
+const { index } = req.params;
+logsArr.splice(index, 1);
+res.send('Ok');
+});
 
 
 
