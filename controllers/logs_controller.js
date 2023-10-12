@@ -35,7 +35,7 @@ logs.get("/:id", (req, res) => {
     console.log(logsArr[id]);
     res.json(logsArr[id]);
   } else {
-    res.status(404).send(`nothing is found on : ${id}`);
+    res.status(404).redirect("/")
   }
 });
 
@@ -61,5 +61,15 @@ logs.post("/", checkForLogKey, (req, res) => {
   logsArr.push(req.body);
   res.send("ok");
 });
+
+logs.put("/:index",checkForLogKey, (req, res) => {
+  const { index } = req.params;
+  const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
+  logsArr[index ] = req.body;
+  res.send('Ok')
+})
+
+
+
 
 module.exports = logs;
