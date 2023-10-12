@@ -29,6 +29,16 @@ captainLogs.delete("/:id", (req, res) => {
     } else {
         res.redirect("/404")
     }
+});
+
+captainLogs.put("/:id", (req,res) => {
+    const {id} = req.params;
+    if (captianLogsArr[id]) {
+        captianLogsArr[id] = req.body;
+        res.redirect("/logs");
+    } else {
+        res.redirect("/404");
+    }
 })
 
 module.exports = captainLogs
