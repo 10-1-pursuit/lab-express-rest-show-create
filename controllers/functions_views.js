@@ -50,7 +50,7 @@ function CrisisFilter(response, selection, num){
          
 
 function checkForLogKey(req, res, next){
-  console.log("ok");
+  console.log(req.body);
   if (req.body.hasOwnProperty( "captainName"))
    {
     return next();
@@ -63,5 +63,6 @@ function checkForLogKey(req, res, next){
 module.exports = {
   AlphabetSort,
   MistakesFilters,
-  CrisisFilter
+  CrisisFilter,
+  checkForLogKey
 };

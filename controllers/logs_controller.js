@@ -5,6 +5,7 @@ const {
   AlphabetSort,
   MistakesFilters,
   CrisisFilter,
+  checkForLogKey
 } = require("./functions_views");
 
 
@@ -42,15 +43,15 @@ logs.get("/:id", (req, res) => {
   }
 });
 
-const checkForLogKey = (req, res, next) => {
-  console.log("ok");
-  if (req.body.hasOwnProperty( "captainName"))
-   {
-    return next();
-  } else {
-    res.send("You must have an object name");
-  }
-};
+// const checkForLogKey = (req, res, next) => {
+//   console.log("ok");
+//   if (req.body.hasOwnProperty( "captainName"))
+//    {
+//     return next();
+//   } else {
+//     res.send("You must have an object name");
+//   }
+// };
 
 logs.post("/", checkForLogKey, (req, res) => {
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
