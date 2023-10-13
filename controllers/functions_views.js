@@ -51,13 +51,21 @@ function CrisisFilter(response, selection, num){
 
 function checkForLogKey(req, res, next){
   console.log(req.body);
-  if (req.body.hasOwnProperty( "captainName"))
-   {
+  if 
+  (
+
+    (req.body.hasOwnProperty( "captainName") && typeof req.body.captainName === "string") || 
+    (req.body.hasOwnProperty( "title") && typeof req.body.title === "string")  || 
+    (req.body.hasOwnProperty( "post") && typeof req.body.post === "string") || 
+    (req.body.hasOwnProperty( "mistakesWereMadeToday") && typeof req.body.mistakesWereMadeToday === "boolean" ) || 
+    (req.body.hasOwnProperty( "daysSinceLastCrisis") && typeof req.body.daysSinceLastCrisis === "number"  )
+  ){
     return next();
   } else {
-    res.send("You must have an object name");
+    res.send(`invalid object. Please check yo self ${req.body}`);
   }
-};
+}
+
 
 
 module.exports = {

@@ -5,7 +5,7 @@ const app = express();
 
 //CONTROLLERS
 const logs_controller = require('./controllers/logs_controller')
-console.log("line8")
+
 
 //Middleware:
 app.use(cors())
