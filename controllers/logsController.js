@@ -1,6 +1,6 @@
 const express = require("express");
 const logs = express.Router();
-const logsArray = require("../models/captainModel")
+const logsArray = require("../models/captainModels")
 
 
 //Index Route
@@ -13,7 +13,7 @@ logs.get("/logs", (request, response) => {
     response.json(logsArray);
 });
 
-logs.get("/:index",(req, res) => {
+logs.get("/logs/:index",(req, res) => {
     const index = req.params.index;
     if (!logsArray[index]) {
         res.redirect("/*")
@@ -22,35 +22,31 @@ logs.get("/:index",(req, res) => {
     }
 });
 // create a new log
-logs.post("/", (req, res) => {
-    const incomingLog = req.body;
-    if (!incomingLog) {
-        res.redirect("/*");
-    } else {
-        logsArray.push(incomingLog)
-        res.json(logsArray)
-    }
-});
-// put/ update a log
-logs.put("/:index", (req, res) => {
-const index = req.params.index;
-if (!logsArray[index]) {
-   res.status(404).json({status: false, message: "Invalid index" });
-} else {
-    logsArray[index]= req.body;
-    req.json(logsArray);
-}
+logs.post("/logs", (req, res, next) => {
+
+    const { captainName } = req.body;
+    const { title } = req.body;
+    const { post } = req.body;
+    const { mistakesWereMadeToday } = req.body;
+    const { daysSinceLastCrisis } = req.body;
+
+    logsArray.push({ captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis });
+
+    res.send('Ok');
+
+    next()
+
 });
 
-logs.delete("/:index", (req, res) => {
-    const index = Number(req.params.index);
 
-    if (index < 0 || index >= logsArray.length) {
-        res.status(404).json({ status: false, message: "Invalid index"});
+logs.delete("/logs/:index", (req, res) => {
+    const index = parseInt(req.params.index);
+
+    if (index === 0 || index >= logsArray.length) {
+        res.redirect("Sorry, no data found at the index you're searching for");
     } else {
-        //make sure it only takes one by using splice
-        logsArray.splice(index, 1);
-        res.json(logsArray);
+         
+        res.json(logsArray.splice([index], 1));
     }
 });
 

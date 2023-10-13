@@ -2,9 +2,9 @@
 const express = require("express");
 const app = express();
 
-const logController = require("./controllers/logController")
+const logsController = require("./controllers/logsController")
 // CONFIGURATION
-app.use("/",logController)
+app.use("/",logsController)
 // ROUTES
 app.use(express.json());
 
