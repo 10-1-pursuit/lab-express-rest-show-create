@@ -1,5 +1,5 @@
-// const { response } = require("express");
-//const logs_controller = require("./logs_controller");
+const { response } = require("express");
+const logs_controller = require("./logs_controller");
 
 function AlphabetSort(response, direction) {
   
@@ -48,6 +48,16 @@ function CrisisFilter(response, selection, num){
    return sortedLastCrisis
 }
          
+
+function checkForLogKey(req, res, next){
+  console.log("ok");
+  if (req.body.hasOwnProperty( "captainName"))
+   {
+    return next();
+  } else {
+    res.send("You must have an object name");
+  }
+};
 
 
 module.exports = {

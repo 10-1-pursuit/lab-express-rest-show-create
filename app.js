@@ -1,10 +1,11 @@
 //DEPEND
+console.log("line1")
 const express = require("express");
 const app = express();
 
 //CONTROLLERS
 const logs_controller = require('./controllers/logs_controller')
-
+console.log("line8")
 
 //Middleware:
 app.use(express.json()) // get post requests

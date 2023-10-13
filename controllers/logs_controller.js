@@ -7,9 +7,11 @@ const {
   CrisisFilter,
 } = require("./functions_views");
 
+
+
 logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
-  const response = logsArr.slice();
+  const response = logsArr.slice()
 
   if (order) {
     console.log(AlphabetSort(response, order));
@@ -24,6 +26,7 @@ logs.get("/", (req, res) => {
   if (lastCrisis) {
     console.log(CrisisFilter(response, lastCrisis, 10));
     res.json(CrisisFilter(response, lastCrisis, 10));
+
   } else {
     res.json(response);
   }
@@ -39,20 +42,10 @@ logs.get("/:id", (req, res) => {
   }
 });
 
-
-
-
 const checkForLogKey = (req, res, next) => {
   console.log("ok");
-  if (
-    req.body.hasOwnProperty(
-      "captainName" ||
-        "title" ||
-        "post" ||
-        "mistakesWereMadeToday" ||
-        "daysSinceLastCrisis"
-    )
-  ) {
+  if (req.body.hasOwnProperty( "captainName"))
+   {
     return next();
   } else {
     res.send("You must have an object name");
@@ -61,6 +54,7 @@ const checkForLogKey = (req, res, next) => {
 
 logs.post("/", checkForLogKey, (req, res) => {
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
+  console.log(req.body)
   logsArr.push(req.body);
   res.send("ok");
 });
