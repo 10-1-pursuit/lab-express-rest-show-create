@@ -55,13 +55,7 @@ Let's get you started with the first few. To pass tests, be sure to keep this ob
 
 ```js
 module.exports = [
-  {
-    captainName: "Picard",
-    title: "Courage",
-    post: "Courage can be an emotion too.",
-    mistakesWereMadeToday: true,
-    daysSinceLastCrisis: 100,
-  },
+  
   {
     captainName: "Ahab",
     title: "Whale",
