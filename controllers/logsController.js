@@ -9,17 +9,19 @@ logs.get("/", (request, response) => {
     response.json("Welcome to the Captain's Log!")
 });
 
-logs.get("/logs", (request, response) => {
+logs.get("/logs", (request, response, next) => {
     response.json(logsArray);
+    next();
 });
 
-logs.get("/logs/:index",(req, res) => {
+logs.get("/logs/:index",(req, res, next) => {
     const index = req.params.index;
     if (!logsArray[index]) {
-        res.redirect("/*")
+        res.status(404).json({ error"/*")
     } else {
         res.json(logsArray[index]);
     }
+    next();
 });
 // create a new log
 logs.post("/logs", (req, res, next) => {
@@ -34,7 +36,7 @@ logs.post("/logs", (req, res, next) => {
 
     res.send('Ok');
 
-    next()
+    next();
 
 });
 
