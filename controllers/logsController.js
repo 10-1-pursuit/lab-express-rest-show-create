@@ -4,7 +4,7 @@ const logsArray = require('../models/log.js')
 const { filterByMistakes, sortLogs, filterByLastCrisis } = require('../helper.js')
 
 logs.get('/', (req, res) => {
-
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { order, mistakes, lastCrisis } = req.query;
     
     let prefix;
@@ -18,46 +18,43 @@ logs.get('/', (req, res) => {
 
     if (order) {
         res.json(sortLogs(response, order));
-    }
-
-    if (mistakes) {
+    } else if (mistakes) {
         res.json(filterByMistakes(response, mistakes));
-    }
-
-    if (lastCrisis) {
+    } else if (lastCrisis) {
         res.json(filterByLastCrisis(response, prefix, num));
     } else {
         res.json(response);
     }
 });
 
-logs.get('/:arrayIndex', (req, res, next) => {
+
+
+logs.get('/:arrayIndex', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { arrayIndex } = req.params;
     if (logsArray[arrayIndex]) {
         res.json(logsArray[arrayIndex])
-        next()
     } else {
         res.redirect('/404')
     }
   });
 
-  logs.post('/logs', (req, res, next) => {
-
-    const { captainName } = req.body;
-    const { title } = req.body;
-    const { post } = req.body;
-    const { mistakesWereMadeToday } = req.body;
-    const { daysSinceLastCrisis } = req.body;
-
-
-
-    logsArray.push({ captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis });
-
+  logs.post('/logs', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    const id = generateNewId
+    const newLog = {
+        id,
+        title,
+        post,
+        mistakesWereMadeToday,
+        daysSinceLastCrisis
+    }
+    logsArray.push(newLog)
     res.send('ok')
-    next()
 });
 
-logs.delete('/:arrayIndex', (req, res, next) => {
+logs.delete('/:arrayIndex', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const arrayIndex = parseInt(req.params.arrayIndex);
     if(arrayIndex===0 || arrayIndex>=logsArray.length) {
 
@@ -68,6 +65,7 @@ logs.delete('/:arrayIndex', (req, res, next) => {
   });
   
   logs.put('/:arrayIndex', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { arrayIndex } = req.params;
     const { captainName } = req.body;
     logsArray[arrayIndex] = { captainName };

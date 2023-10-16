@@ -50,8 +50,9 @@ return sortedLastCrisis;
 
 }
 
+
 module.exports = {
     filterByMistakes,
     sortLogs, 
-    filterByLastCrisis 
+    filterByLastCrisis
   };
