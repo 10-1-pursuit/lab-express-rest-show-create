@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const logsController = require('./controllers/logsController')
 console.log('app test')
+
+app.use(express.json())
 app.use('/logs', logsController)
 
 app.get('/', (req, res) => {

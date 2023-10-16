@@ -39,18 +39,18 @@ logs.get('/:arrayIndex', (req, res) => {
     }
   });
 
-  logs.post('/logs', (req, res) => {
+  logs.post('/', (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    const id = generateNewId
+    const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
     const newLog = {
-        id,
+        captainName,
         title,
         post,
         mistakesWereMadeToday,
         daysSinceLastCrisis
     }
     logsArray.push(newLog)
-    res.send('ok')
+    res.status(201).json(newLog);
 });
 
 logs.delete('/:arrayIndex', (req, res) => {
@@ -67,9 +67,20 @@ logs.delete('/:arrayIndex', (req, res) => {
   logs.put('/:arrayIndex', (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { arrayIndex } = req.params;
-    const { captainName } = req.body;
-    logsArray[arrayIndex] = { captainName };
-    res.send('Ok');
+    const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
+    
+    if (logsArray[arrayIndex]) {
+        logsArray[arrayIndex] = {
+            captainName,
+            title,
+            post,
+            mistakesWereMadeToday,
+            daysSinceLastCrisis
+        };
+        res.send('Ok');
+    } else {
+        res.status(404).json({ error: 'Log not found' });
+    }
   });
 
 module.exports = logs;
