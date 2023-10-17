@@ -3,7 +3,7 @@ const logs_controller = require("./logs_controller");
 
 function AlphabetSort(response, direction) {
   
-    if (direction === "asc") {
+    if(direction === "asc") {
     const ascSort = response.sort((a, b) =>
       a.title.localeCompare(b.title, "en", { sensitivity: "case" })
     );
@@ -34,7 +34,7 @@ function MistakesFilters(response, selection) {
 function CrisisFilter(response, selection, num){
     let sortedLastCrisis;
     
-    if( selection === "gt"){
+    if(selection === "gt"){
          sortedLastCrisis = response.filter((log) => log.daysSinceLastCrisis > num)
     } else if (selection === "gte"){
          sortedLastCrisis = response.filter((log) => log.daysSinceLastCrisis >= num)
@@ -51,20 +51,32 @@ function CrisisFilter(response, selection, num){
 
 function checkForLogKey(req, res, next){
   console.log(req.body);
-  if 
-  (
-
+ 
+ let vaild =  (
     (req.body.hasOwnProperty( "captainName") && typeof req.body.captainName === "string") || 
     (req.body.hasOwnProperty( "title") && typeof req.body.title === "string")  || 
     (req.body.hasOwnProperty( "post") && typeof req.body.post === "string") || 
     (req.body.hasOwnProperty( "mistakesWereMadeToday") && typeof req.body.mistakesWereMadeToday === "boolean" ) || 
     (req.body.hasOwnProperty( "daysSinceLastCrisis") && typeof req.body.daysSinceLastCrisis === "number"  )
-  ){
+  );
+
+  if(vaild){
     return next();
   } else {
     res.send(`invalid object. Please check yo self ${req.body}`);
   }
 }
+
+
+// const createNewLog = (req, res) => {
+//  res.json({
+//   "captainName": string,
+//  "title": string,
+//   "post": string,
+//   "mistakesWereMadeToday": boolean,
+//   "daysSinceLastCrisis": number
+//  })
+// }
 
 
 

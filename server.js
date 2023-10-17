@@ -1,4 +1,4 @@
-console.log("Test")
+console.log("Earl Grey Hot")
 const app = require("./app.js")
 
 require("dotenv").config();

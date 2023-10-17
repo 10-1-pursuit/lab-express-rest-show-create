@@ -25,13 +25,14 @@ logs.get("/", (req, res) => {
   }
 
   if (lastCrisis) {
-    console.log(CrisisFilter(response, lastCrisis, 10));
+    console.log(CrisisFilter(response, lastCrisis, 10));   //how do i not hard code the number? process.argv or something
     res.json(CrisisFilter(response, lastCrisis, 10));
 
   } else {
     res.json(response);
   }
 });
+
 
 logs.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -43,16 +44,6 @@ logs.get("/:id", (req, res) => {
   }
 });
 
-// const checkForLogKey = (req, res, next) => {
-//   console.log("ok");
-//   if (req.body.hasOwnProperty( "captainName"))
-//    {
-//     return next();
-//   } else {
-//     res.send("You must have an object name");
-//   }
-// };
-
 logs.post("/", checkForLogKey, (req, res) => {
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
   console.log(req.body)
@@ -60,14 +51,15 @@ logs.post("/", checkForLogKey, (req, res) => {
   res.send("ok");
 });
 
-logs.put("/:index",checkForLogKey, (req, res) => {
+logs.put("/:index", checkForLogKey, (req, res) => {
   const { index } = req.params;
+  console.log( req.params, req.body)
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
-  logsArr[index ] = req.body;
+  logsArr[index] = req.body;
   res.send('Ok')
 });
 
-logs.delete('/:id', (req, res) => {
+logs.delete('/:index', (req, res) => {
 const { index } = req.params;
 logsArr.splice(index, 1);
 res.send('Ok');

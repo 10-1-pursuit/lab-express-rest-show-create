@@ -1,15 +1,14 @@
 //DEPEND
-const cors = require('cors')
 const express = require("express");
 const app = express();
+const cors = require('cors')
 
 //CONTROLLERS
 const logs_controller = require('./controllers/logs_controller')
 
-
 //Middleware:
 app.use(cors())
-app.use(express.json()) // get post requests
+app.use(express.json()) // get post requests parse incoming 
 
 app.use('/logs', logs_controller);
 
