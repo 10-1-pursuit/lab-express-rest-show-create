@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 const logsController = require('./controllers/logsController')
+const cors = require("cors");
+
+app.use(cors({
+  origin: 'http://localhost:3000' 
+}))
 console.log('app test')
 
 app.use(express.json())

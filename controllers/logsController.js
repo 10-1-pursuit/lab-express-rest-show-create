@@ -4,7 +4,6 @@ const logsArray = require('../models/log.js')
 const { filterByMistakes, sortLogs, filterByLastCrisis } = require('../helper.js')
 
 logs.get('/', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { order, mistakes, lastCrisis } = req.query;
     
     let prefix;
@@ -30,7 +29,6 @@ logs.get('/', (req, res) => {
 
 
 logs.get('/:arrayIndex', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { arrayIndex } = req.params;
     if (logsArray[arrayIndex]) {
         res.json(logsArray[arrayIndex])
@@ -40,7 +38,6 @@ logs.get('/:arrayIndex', (req, res) => {
   });
 
   logs.post('/', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
     const newLog = {
         captainName,
@@ -54,7 +51,6 @@ logs.get('/:arrayIndex', (req, res) => {
 });
 
 logs.delete('/:arrayIndex', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const arrayIndex = parseInt(req.params.arrayIndex);
     console.log('Array Index:', arrayIndex);
     console.log('Logs Array:', logsArray);
@@ -69,7 +65,6 @@ logs.delete('/:arrayIndex', (req, res) => {
   });
   
   logs.put('/:arrayIndex', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const { arrayIndex } = req.params;
     const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
     
