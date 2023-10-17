@@ -56,11 +56,15 @@ logs.get('/:arrayIndex', (req, res) => {
 logs.delete('/:arrayIndex', (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     const arrayIndex = parseInt(req.params.arrayIndex);
-    if(arrayIndex===0 || arrayIndex>=logsArray.length) {
-
-        res.redirect('/404')
+    console.log('Array Index:', arrayIndex);
+    console.log('Logs Array:', logsArray);
+    if (arrayIndex >= 0 && arrayIndex < logsArray.length) {
+        console.log('Log found - deleting...');
+        const deletedLog = logsArray.splice(arrayIndex, 1);
+        res.json(deletedLog);
     } else {
-        res.json(logsArray.splice([arrayIndex], 1));
+        console.log('Log not found - sending 404');
+        res.redirect('/404')
     }
   });
   
