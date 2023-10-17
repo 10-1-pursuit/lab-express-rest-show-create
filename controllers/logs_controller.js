@@ -9,7 +9,7 @@ const {
 } = require("./functions_views");
 
 
-
+//Index Route
 logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
   const response = logsArr.slice()
@@ -33,7 +33,7 @@ logs.get("/", (req, res) => {
   }
 });
 
-
+//SHOW
 logs.get("/:id", (req, res) => {
   const { id } = req.params;
   if (logsArr[id]) {
@@ -43,6 +43,7 @@ logs.get("/:id", (req, res) => {
     res.status(404).redirect("/")
   }
 });
+//CREATE
 
 logs.post("/", checkForLogKey, (req, res) => {
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
@@ -51,6 +52,7 @@ logs.post("/", checkForLogKey, (req, res) => {
   res.send("ok");
 });
 
+//UPDATE
 logs.put("/:index", checkForLogKey, (req, res) => {
   const { index } = req.params;
   console.log( req.params, req.body)
@@ -59,6 +61,7 @@ logs.put("/:index", checkForLogKey, (req, res) => {
   res.send('Ok')
 });
 
+//DESTROY
 logs.delete('/:index', (req, res) => {
 const { index } = req.params;
 logsArr.splice(index, 1);
