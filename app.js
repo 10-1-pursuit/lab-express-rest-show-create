@@ -1,4 +1,4 @@
-//DEPEND
+//DEPENDENCIES
 const express = require("express");
 const app = express();
 const cors = require('cors')
@@ -7,15 +7,15 @@ const cors = require('cors')
 const logs_controller = require('./controllers/logs_controller')
 
 //Middleware:
-app.use(cors())
+app.use(cors()) // permissions cross origin resource sharing
 app.use(express.json()) // get post requests parse incoming 
 
 app.use('/logs', logs_controller);
 
-app.use((req, res, next) => {
-    console.log(req.method, req.headers.host, req.path)
-   return next()
-})
+// app.use((req, res) => {
+//     console.log(req.method, req.headers.host, req.path)
+
+// })
 
 app.get('/', (req, res) =>{
   res.status(200).send("welcome to the captain's log")

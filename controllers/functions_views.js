@@ -52,7 +52,7 @@ function CrisisFilter(response, selection, num){
 function checkForLogKey(req, res, next){
   console.log(req.body);
  
- let vaild =  (
+ let vaild =  (               //typeof operator returns the varitey of the value associated with it
     (req.body.hasOwnProperty( "captainName") && typeof req.body.captainName === "string") || 
     (req.body.hasOwnProperty( "title") && typeof req.body.title === "string")  || 
     (req.body.hasOwnProperty( "post") && typeof req.body.post === "string") || 

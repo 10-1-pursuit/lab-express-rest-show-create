@@ -62,7 +62,7 @@ logs.put("/:index", checkForLogKey, (req, res) => {
 });
 
 //DESTROY
-logs.delete('/:index', (req, res) => {
+logs.delete("/:index", (req, res) => {
 const { index } = req.params;
 logsArr.splice(index, 1);
 res.send('Ok');
