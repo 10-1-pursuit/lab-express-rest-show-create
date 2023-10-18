@@ -25,7 +25,7 @@ captainLogs.delete("/:id", (req, res) => {
     const { id } = req.params;
     if (captianLogsArr[id]) {
         captianLogsArr.splice(id, 1);
-        res.redirect("/logs");
+        res.status(204).end();
     } else {
         res.redirect("/404")
     }
