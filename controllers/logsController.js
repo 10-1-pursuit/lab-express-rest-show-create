@@ -1,43 +1,52 @@
 const express = require("express");
-const logsArray = require("../models/logs.js");
+const logsArray = require("../models/log.js");
 const router = express.Router();
 
 // Define your routes using router.get(), router.post(), etc.
-
 //get all
 router.get("/", (req, res) => {
   res.json(logsArray);
 });
 
-//BONUS: Filtered Routes
-//-------------------- mistakes -----------------------
+//BONUS: Filtered Routes --------
 router.get("/", (req, res) => {
-  let filteredLogs = [...logsArray];
+  res.json(logsArray);
 
-  const { mistakes, lastCrisis, order } = req.query;
+  //mistakes ----
+  router.get("/", (req, res) => {
+    let filteredLogs = [...logsArray];
 
-  if (mistakes === "true") {
-    filteredLogs = filteredLogs.filter((log) => log.mistakesWereMadeToday);
-  } else if (mistakes === "false") {
-    filteredLogs = filteredLogs.filter((log) => !log.mistakesWereMadeToday);
-  }
-  //---------------- last crisis -----------------------
-  if (lastCrisis === "gt10") {
-    filteredLogs = filteredLogs.filter((log) => log.daysSinceLastCrisis > 10);
-  } else if (lastCrisis === "gte20") {
-    filteredLogs = filteredLogs.filter((log) => log.daysSinceLastCrisis >= 20);
-  } else if (lastCrisis) {
-    filteredLogs = filteredLogs.filter((log) => log.daysSinceLastCrisis <= 5);
-  }
+    const { mistakes, lastCrisis, order } = req.query;
 
-  //-------------------- sort asc or desc ---------------
-  if (order === "asc") {
-    filteredLogs = filteredLogs.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (order === "desc") {
-    filteredLogs = filteredLogs.sort((a, b) => b.title.localeCompare(a.title));
-  }
+    if (mistakes === "true") {
+      filteredLogs = filteredLogs.filter((log) => log.mistakesWereMadeToday);
+    } else if (mistakes === "false") {
+      filteredLogs = filteredLogs.filter((log) => !log.mistakesWereMadeToday);
+    }
+    // last crisis ----
+    if (lastCrisis === "gt10") {
+      filteredLogs = filteredLogs.filter((log) => log.daysSinceLastCrisis > 10);
+    } else if (lastCrisis === "gte20") {
+      filteredLogs = filteredLogs.filter(
+        (log) => log.daysSinceLastCrisis >= 20
+      );
+    } else if (lastCrisis) {
+      filteredLogs = filteredLogs.filter((log) => log.daysSinceLastCrisis <= 5);
+    }
+
+    // sort asc or desc
+    if (order === "asc") {
+      filteredLogs = filteredLogs.sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+    } else if (order === "desc") {
+      filteredLogs = filteredLogs.sort((a, b) =>
+        b.title.localeCompare(a.title)
+      );
+    }
+  });
+  res.json(filteredLogs);
 });
-
 //--------------------- RESTful routes -------------------
 
 //get one
@@ -47,7 +56,7 @@ router.get("/:index", (req, res) => {
   if (log) {
     res.json(log);
   } else {
-    res.status(404).json({ message: "Log not found" });
+    res.redirect("logs");
   }
 });
 
