@@ -2,7 +2,6 @@ const express = require("express");
 const logs = express.Router();
 const logsArray = require("../models/logs");
 
-
 logs.get("/", (req, res) => {
   res.send("Welcome to the Captain's Log, Ayee Matey 🪝⛵️");
 });
@@ -10,7 +9,6 @@ logs.get("/", (req, res) => {
 logs.get("/logs", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
   let filteredLogs = [...logsArray];
-
 
   const crisisFilters = {
     lte5: (log) => log.daysSinceLastCrisis <= 5,
@@ -20,8 +18,8 @@ logs.get("/logs", (req, res) => {
 
   if (lastCrisis && crisisFilters[lastCrisis]) {
     filteredLogs = filteredLogs.filter(crisisFilters[lastCrisis]);
-  } 
-  
+  }
+
   if (mistakes === "true" || mistakes === "false") {
     const isMistake = mistakes === "true";
     filteredLogs = filteredLogs.filter(
@@ -35,8 +33,7 @@ logs.get("/logs", (req, res) => {
       return order === "asc" ? comparison : -comparison;
     });
   }
-  res.json(filteredLogs)
- 
+  res.json(filteredLogs);
 });
 
 logs.get("/logs/:arrayIndex", (req, res) => {
@@ -48,25 +45,31 @@ logs.get("/logs/:arrayIndex", (req, res) => {
 });
 
 logs.post("/logs", (req, res) => {
+  // console.log(logsArray)
   const {
     captainName,
-    title,
-    post,
-    mistakesWereMadeToday,
     daysSinceLastCrisis,
+    mistakesWereMadeToday,
+    post,
+    title,
   } = req.body;
-  const newLog = req.body;
-  console.log(`sent, ${JSON.stringify(newLog)}`);
+  
+  const newLog = {
+    captainName,
+    daysSinceLastCrisis,
+    mistakesWereMadeToday,
+    post,
+    title,
+  };
+  console.log(`sent`, newLog);
   logsArray.push(newLog);
-  res.status(201).json(newLog);
+  res.status(201).json(logsArray);
 });
 
 logs.delete("/logs/:id", (req, res) => {
-  const { id } = req.params;
-  logsArray.splice(id, 1);
-  res.send("Ok");
+  const { arrayIndex } = req.params;
+  logsArray.splice(arrayIndex, 2);
+  res.status(303).send("Ok");
 });
-
-
 
 module.exports = logs;
