@@ -35,7 +35,7 @@ captainLogs.put("/:id", (req,res) => {
     const {id} = req.params;
     if (captianLogsArr[id]) {
         captianLogsArr[id] = req.body;
-        res.redirect("/logs");
+        res.status(200).send(captianLogsArr[id]);
     } else {
         res.redirect("/404");
     }
