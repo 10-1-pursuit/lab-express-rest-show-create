@@ -25,7 +25,7 @@ module.exports = [
         captainName: "Ahab",
         title: "Insolence",
         post: "I don't give reasons. I give orders!",
-        mistakesWereMadeToday: false,
+        mistakesWereMadeToday: true,
         daysSinceLastCrisis: 100,
       },
       {

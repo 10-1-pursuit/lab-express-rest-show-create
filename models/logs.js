@@ -1,5 +1,5 @@
 
-module.exports = [
+ [
     {
         captainName: "Picard",
         title: "Courage",

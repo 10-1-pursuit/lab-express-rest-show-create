@@ -1,6 +1,6 @@
 const express = require("express");
 const logs = express.Router();
-const logsArray = require("../models/logs");
+const logsArray = require("../models/log");
 
 logs.get("/", (req, res) => {
   res.send("Welcome to the Captain's Log, Ayee Matey 🪝⛵️");
@@ -44,6 +44,17 @@ logs.get("/logs/:arrayIndex", (req, res) => {
   } else res.redirect("https://github.com/joinpursuit/captains-log-api");
 });
 
+const checkForCaptainKey = (req, res, next) => {
+  console.log('✅💯✅')
+  if (req.body.hasOwnProperty('captainName')) {
+    return next()
+  } else {
+    res.redirect("https://github.com/joinpursuit/captains-log-api");
+  }
+}
+
+
+
 logs.post("/logs", (req, res) => {
   // console.log(logsArray)
   const {
@@ -66,10 +77,17 @@ logs.post("/logs", (req, res) => {
   res.status(201).json(logsArray);
 });
 
-logs.delete("/logs/:id", (req, res) => {
+logs.delete("/logs/:arrayIndex", (req, res) => {
   const { arrayIndex } = req.params;
-  logsArray.splice(arrayIndex, 2);
+  logsArray.splice(arrayIndex, 1);
   res.status(303).send("Ok");
 });
+
+logs.put('/logs/:arrayIndex', checkForCaptainKey, (req, res) => {
+  const { arrayIndex } = req.params;
+const {captainName} = req.body
+logsArray[arrayIndex] = {captainName}
+res.status(200).json(logsArray[arrayIndex])
+})
 
 module.exports = logs;
