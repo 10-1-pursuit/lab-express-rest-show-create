@@ -1,3 +1,4 @@
+
 module.exports = [
     {
         captainName: "Picard",
@@ -16,7 +17,7 @@ module.exports = [
       {
         captainName: "Sarah Lance",
         title: "Vandal Savage",
-        post: "I’d tell you to go to hell, but you’d probably just feel at home there.",
+        post: "I'd tell you to go to hell, but you'd probably just feel at home there.",
         mistakesWereMadeToday: true,
         daysSinceLastCrisis: 0,
       },
@@ -24,7 +25,7 @@ module.exports = [
         captainName: "Ahab",
         title: "Insolence",
         post: "I don't give reasons. I give orders!",
-        mistakesWereMadeToday: true,
+        mistakesWereMadeToday: false,
         daysSinceLastCrisis: 100,
       },
       {
@@ -44,10 +45,11 @@ module.exports = [
       {
         captainName: "Sarah Lance",
         title: "Jonah Hex",
-        post: "I know you don’t like taking orders from a woman, but you’re gonna like getting your ass kicked by one even less.",
+        post: "I know you don't like taking orders from a woman, but you're gonna like getting your ass kicked by one even less.",
         mistakesWereMadeToday: true,
         daysSinceLastCrisis: 0,
       },
     ];
     
     
+
