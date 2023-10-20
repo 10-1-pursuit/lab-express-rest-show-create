@@ -12,10 +12,10 @@ app.use(express.json()) // get post requests parse incoming
 
 app.use('/logs', logs_controller);
 
-// app.use((req, res) => {
-//     console.log(req.method, req.headers.host, req.path)
+app.use((req, res) => {
+    console.log(req.method, req.headers.host, req.path)
 
-// })
+})
 
 app.get('/', (req, res) =>{
   res.status(200).send("welcome to the captain's log")

@@ -29,6 +29,7 @@ logs.get("/", (req, res) => {
     res.json(CrisisFilter(response, lastCrisis, 10));
 
   } else {
+    console.log("ok")
     res.json(response);
   }
 });
@@ -45,7 +46,7 @@ logs.get("/:id", (req, res) => {
 });
 //CREATE
 
-logs.post("/", checkForLogKey, (req, res) => {
+logs.post("/", (req, res) => {
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
   console.log(req.body)
   logsArr.push(req.body);
@@ -53,7 +54,7 @@ logs.post("/", checkForLogKey, (req, res) => {
 });
 
 //UPDATE
-logs.put("/:index", checkForLogKey, (req, res) => {
+logs.put("/:index", (req, res) => {
   const { index } = req.params;
   console.log( req.params, req.body)
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
