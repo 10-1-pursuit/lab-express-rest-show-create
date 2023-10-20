@@ -59,6 +59,7 @@ logs.put("/:index", (req, res) => {
   console.log( req.params, req.body)
   const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
   logsArr[index] = req.body;
+  console.log(logsArr[index])
   res.send('Ok')
 });
 
