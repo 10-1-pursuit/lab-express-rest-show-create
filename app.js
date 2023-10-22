@@ -6,6 +6,11 @@ app.get("/", (request, response) => {
     response.status(200).send("Hello, world!");
 });
 
+// Routes
+const logsController = require("./controllers/logs.controller");
+
+app.use(logsController);
+
 // 404 route
 app.use((req, res) => {
     res.status(404).send("Not Found");
