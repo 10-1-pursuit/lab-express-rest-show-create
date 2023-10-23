@@ -120,7 +120,7 @@ Add functionality where if a user goes to
 - `/logs?mistakes=true` it will only show the logs where the value of `mistakesWereMadeToday` is true
 - `/logs?mistakes=false` it will only show the logs where the value of `mistakesWereMadeToday` is false
 - `/logs?lastCrisis=gt10` it will return all the logs where the `daysSinceLastCrisis`is **g**reater **t**than 10
-- `/logs?lastCrisis=gte20`it will return all the logs where the `daysSinceLastCrisis`is **g**reater **t**than or **e**qual to 20
+- `/logs?lastCrisis=bte20`it will return all the logs where the `daysSinceLastCrisis`is **g**reater **t**than or **e**qual to 20
 - `/logs?lastCrisis=lte5`it will return all the logs where the `daysSinceLastCrisis`is **l**ess **t**than or **e**qual to 5
 
 **Note** the original `/logs` route should be unaffected by these additions
