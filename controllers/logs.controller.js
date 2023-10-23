@@ -1,4 +1,3 @@
-// Define a route that shows the array of logs
 const express = require("express");
 const logs = express.Router();
 const logsArray = require("../models/log.js");
@@ -53,7 +52,22 @@ logs.get("/logs/:arrayIndex", (req, res) => {
     }
 });
 
- 
+logs.post("/logs", (req, res) => {
+    const newLog = req.body;
+
+    res.status(201).json(newLog);
+});
+
+logs.delete("/logs/:index", (req, res) => {
+    const index = parseInt(req.params.index);
+
+    if (index < 0 || index >= logsArray.length) {
+        return res.status(404).json({ error: "Log not found at the specified index" });
+    }
+
+    const deletedLog = logsArray.splice(index, 1);
+    res.json(deletedLog);
+});
 
 
 module.exports = logs;
