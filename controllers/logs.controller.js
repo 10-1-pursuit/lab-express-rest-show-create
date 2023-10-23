@@ -53,9 +53,8 @@ logs.get("/logs/:arrayIndex", (req, res) => {
 });
 
 logs.post("/logs", (req, res) => {
-    const newLog = req.body;
-
-    res.status(201).json(newLog);
+    logsArray.push(req.body);
+    res.send('Ok');
 });
 
 logs.delete("/logs/:index", (req, res) => {
