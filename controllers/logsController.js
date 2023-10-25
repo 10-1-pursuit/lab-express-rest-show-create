@@ -1,16 +1,17 @@
 const express = require("express");
-const logsController = express.Router();
+const logs = express.Router();
 
 let logsArray = require("../models/logs.js");
 
 const { logsValidator } = require("../models/validator.js");
 
-logsController.get("/", (request, response) => {
+logs.get("/", (request, response) => {
   response.send(logsArray);
 });
 
-logsController.get("/:index", (request, response) => {
+logs.get("/:index", (request, response) => {
   const { index } = request.params;
+  response.json(logsArray);
 
   if (logsArray[index]) {
     response.json(logsArray[index]);
@@ -18,5 +19,18 @@ logsController.get("/:index", (request, response) => {
     response.redirect("/400");
   }
 });
+logs.post("/", logsValidator, (request, response) => {
+  logsArray.push(request, body);
+  response.json(logsArray[logsArray.length - 1]);
+});
+logs.put("/:index", logsValidator, (request, response) => {
+  const { index } = request.params;
+  if (logsArray[index]) {
+    logsArray.splice(index, 0, request.body);
+    response.status(200).json({ status: 200, message: "resource updated" });
+  } else {
+    response.redirect("/404");
+  }
+});
 
-module.exports = logsController;
+module.exports = logs;
