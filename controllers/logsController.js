@@ -33,4 +33,14 @@ logs.put("/:index", logsValidator, (request, response) => {
   }
 });
 
+logs.delete("/:index", logsValidator, (request, response) => {
+  const { index } = request.params;
+  if (logsArray[index]) {
+    logsArray.splice(index, 1);
+    response.status(200).json({ status: 200, message: "resource deleted" });
+  } else {
+    response.redirect("/400");
+  }
+});
+
 module.exports = logs;
