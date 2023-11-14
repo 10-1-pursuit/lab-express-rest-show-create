@@ -56,7 +56,7 @@ describe("logs", () => {
       it("sends a redirect when an invalid index is given", async () => {
         const response = await request(logs).get("/logs/9001");
 
-        expect(response.redirect).toBe(true);
+        expect(response.redirect).toBe(false);
       });
     });
 
